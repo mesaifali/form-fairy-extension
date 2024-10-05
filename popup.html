@@ -1,0 +1,166 @@
+ <!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Form Filler</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      body {
+        width: 450px;
+        min-height: 500px;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+      }
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+      .slider.round {
+        border-radius: 34px;
+      }
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark input[type="text"], .dark select {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+      }
+      .dark input[type="text"]::placeholder {
+        color: #a0aec0;
+      }
+    </style>
+  </head>
+  <body id="body" class="p-6 bg-white text-black">
+    <div class="flex justify-between items-center mb-6">
+        <h1 id="form-filler" class="text-3xl font-bold">Form Filler</h1>
+        <div class="flex items-center">
+            <span class="mr-2 text-sm">Dark Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="mb-8 pb-6 border-b">
+        <h2 id="quick-fill" class="text-xl font-semibold mb-4">Quick Fill</h2>
+        <button id="randomFill" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            Fill with Random Data
+        </button>
+          <p class="mb-4 text-sm leading-relaxed pt-2">
+            If you need a temporary email for OTP verification, you can use the following website:
+          </p>
+          <a href="https://temp-mail.id/" target="_blank" class="inline-block bg-gray-700 hover:bg-gray-900 text-white font-awesome py-1 px-2 rounded transition duration-300 ease-in-out">
+            Temporary Email Website
+          </a>
+          <p class="mt-2 ">
+            To use the service:
+          </p>
+          <ol class="list-decimal list-inside mt-2 space-y-2">
+            <li>Enter your desired username</li>
+            <li>Select an email domain from the options provided</li>
+            <li>Click "Create" to generate your temporary email address</li>
+          </ol>
+      </div>
+      
+    <div class="mb-8 pb-6 border-b">
+        <h2 id="custom-presets" class="text-xl font-semibold mb-4">Custom Presets</h2>
+        <div class="flex flex-col gap-3">
+            <select id="customPresetSelect" class="p-2 border rounded">
+                <option value="">Select a custom preset</option>
+            </select>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="fillCustomPreset" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                    Fill with Preset
+                </button>
+                <button id="editCustomPreset" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                    Edit Preset
+                </button>
+                <button id="deleteCustomPreset" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                    Delete Preset
+                </button>
+                <button id="refreshPresets" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
+                    Refresh Presets
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="createEditPreset" class="mb-8">
+      <h2 id="createEditTitle" class="text-xl font-semibold mb-4">Create Custom Preset</h2>
+      <input type="text" id="customPresetName" placeholder="Preset Name" class="w-full p-2 border rounded mb-3">
+      <div id="customFields" class="mb-3 space-y-2">
+          <!-- Fields will be added here dynamically -->
+      </div>
+      <div class="grid grid-cols-1 gap-3">
+          <button id="addField" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              Add Field
+          </button>
+          <button id="saveCustomPreset" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+              Save Preset
+          </button>
+      </div>
+  </div>
+
+    <div class="mb-8 pb-6 border-b">
+        <h2 class="text-xl font-semibold mb-4">Export/Import Presets</h2>
+        <div class="grid grid-cols-2 gap-3">
+            <button id="exportPresets" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
+                Export Presets
+            </button>
+            <button id="importPresets" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">
+                Import Presets
+            </button>
+        </div>
+    </div>
+
+    <div class="mt-8 text-center">
+        <h2 class="text-xl font-semibold mb-4">Support</h2>
+        <p class="mb-4">This extension is open-source. You can contribute or report issues on GitHub.</p>
+        <div class="grid grid-cols-2 gap-3">
+            <a href="https://github.com/mesaifali/form-fairy-extension" target="_blank" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+              <i class="fa-solid fa-mug-hot"></i> Support Us
+            </a>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
