@@ -4,8 +4,8 @@ FormFairy is a powerful Chrome extension that simplifies form filling with rando
 
 ## Screenshots
 
-![Extension Screenshot](https://saifali.sirv.com/1up/1.jpg)(https://saifali.sirv.com/1up/2.jpg)
-
+![Extension Screenshot](https://saifali.sirv.com/1up/1.jpg )
+![Extension Screenshot](https://saifali.sirv.com/1up/2.jpg)
 
 ## Features
 
