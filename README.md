@@ -32,10 +32,10 @@ cd website-time-tracker
 - Load the extension in Chrome:
 
 ```bash
-1. Open chrome://extensions/
+1. Open `chrome://extensions`
 2. Enable "Developer mode"
 3. Click "Load unpacked"
-4. Select the project directory(form-fairy-extension)
+4. Select the project directory("form-fairy-extension")
 ```
 
 ## How to Use
